@@ -11,7 +11,7 @@
 		<div>
 			<div>
 				<h:outputLabel value="Título" />
-				<h:inputText value="#{adminLivrosBean.livro.titulo}" />
+				<h:inputText value="#{adminLivrosBean.livro.titulo}" required="true" requiredMessage="O Título é um campo obrigatório!"/>
 			</div>
 			<div>
 				<h:outputLabel value="Descrição" />
