@@ -11,7 +11,7 @@
 		<div>
 			<div>
 				<h:outputLabel value="Título" />
-				<h:inputText value="#{adminLivrosBean.livro.titulo}" required="true" requiredMessage="O Título é um campo obrigatório!"/>
+				<h:inputText name="Titúlo" value="#{adminLivrosBean.livro.titulo}" required="true"/>
 			</div>
 			<div>
 				<h:outputLabel value="Descrição" />
@@ -19,11 +19,15 @@
 			</div>
 			<div>
 				<h:outputLabel value="Número de Páginas" />
-				<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}" />
+				<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}">
+					<f:validateLongRange minimum="80" />
+				</h:inputText>
 			</div>
 			<div>
 				<h:outputLabel value="Preço" />
-				<h:inputText value="#{adminLivrosBean.livro.preco}" />
+				<h:inputText value="#{adminLivrosBean.livro.preco}">
+					<f:validateDoubleRange minimum="20" maximum="150" />
+				</h:inputText>	
 			</div>
 			<div>
 				<h:outputLabel value="Autores" />
