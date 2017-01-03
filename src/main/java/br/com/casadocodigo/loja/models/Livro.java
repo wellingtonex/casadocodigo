@@ -1,12 +1,15 @@
 package br.com.casadocodigo.loja.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Livro {
@@ -20,6 +23,9 @@ public class Livro {
 	private String descricao;
 	private BigDecimal preco;
 	private Integer numeroPaginas;
+	
+	@ManyToMany
+    private List<Autor> autores = new ArrayList<>();
 
 	public String getDescricao() {
 		return descricao;
@@ -53,10 +59,27 @@ public class Livro {
 		this.titulo = titulo;
 	}
 
-	@Override
-	public String toString() {
-		return "Livro [titulo=" + titulo + ", descricao=" + descricao
-				+ ", preco=" + preco + ", numeroPaginas=" + numeroPaginas + "]";
+	public Long getId() {
+		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+
+	@Override
+	public String toString() {
+		return "Livro [id=" + id + ", titulo=" + titulo + ", descricao="
+				+ descricao + ", preco=" + preco + ", numeroPaginas="
+				+ numeroPaginas + ", autores=" + autores + "]";
+	}
+	
 }
