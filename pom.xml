@@ -48,6 +48,11 @@
 		<version>4.3.10.Final</version>
 		<scope>provided</scope>
 	</dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>4.3.2.Final</version>
+	</dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>

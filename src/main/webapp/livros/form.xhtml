@@ -6,35 +6,35 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <body>
-	<h:messages style="color:red;margin:8px;" />
 	<h:form>
 		<div>
 			<div>
 				<h:outputLabel value="Título" />
-				<h:inputText name="Titúlo" value="#{adminLivrosBean.livro.titulo}" required="true"/>
+				<h:inputText id="titulo" value="#{adminLivrosBean.livro.titulo}"/>				
+				<h:message for="titulo" style="color:red;margin:8px;" />
 			</div>
 			<div>
 				<h:outputLabel value="Descrição" />
-				<h:inputTextarea value="#{adminLivrosBean.livro.descricao}" />
+				<h:inputTextarea value="#{adminLivrosBean.livro.descricao}" id="descricao"/>
+				<h:message for="descricao" style="color:red;margin:8px;" />
 			</div>
 			<div>
-				<h:outputLabel value="Número de Páginas" />
-				<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}">
-					<f:validateLongRange minimum="80" />
-				</h:inputText>
+				<h:outputLabel value="Número de Páginas" required="true"/>
+				<h:inputText value="#{adminLivrosBean.livro.numeroPaginas}" id="numero_paginas"/>
+				<h:message for="numero_paginas" style="color:red;margin:8px;" />
 			</div>
 			<div>
 				<h:outputLabel value="Preço" />
-				<h:inputText value="#{adminLivrosBean.livro.preco}">
-					<f:validateDoubleRange minimum="20" maximum="150" />
-				</h:inputText>	
+				<h:inputText value="#{adminLivrosBean.livro.preco}" required="true" id="preco"/>
+				<h:message for="preco" style="color:red;margin:8px;" />
 			</div>
 			<div>
 				<h:outputLabel value="Autores" />
-				<h:selectManyListbox value="#{adminLivrosBean.autoresId}" converter="javax.faces.Long">
+				<h:selectManyListbox value="#{adminLivrosBean.autoresId}" converter="javax.faces.Long" id="autores">
 					<f:selectItems value="#{adminLivrosBean.autores}" var="autor"
 						itemValue="#{autor.id}" itemLabel="#{autor.nome}" />
 				</h:selectManyListbox>
+				<h:message for="autores" style="color:red;margin:8px;" />
 			</div>
 			<h:commandButton value="Cadastrar" action="#{adminLivrosBean.salvar}" />
 		</div>
