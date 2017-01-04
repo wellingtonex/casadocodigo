@@ -47,7 +47,7 @@ public class Livro {
     private List<Autor> autores = new ArrayList<>();
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar dataPublicacao = Calendar.getInstance();
+	private Calendar dataPublicacao;
 
 	public String getDescricao() {
 		return descricao;
