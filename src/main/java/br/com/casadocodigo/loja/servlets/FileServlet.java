@@ -29,8 +29,8 @@ public class FileServlet extends HttpServlet {
     String contentType = fileNameMap.getContentTypeFor("file:"+source);
 
     res.reset();
-    res.setContentType(contentType);
-    res.setHeader("Content-Length", String.valueOf(Files.size(source)));
+    res.setContentType(contentType);    
+    res.setContentLengthLong(Files.size(source));
     res.setHeader("Content-Disposition", 
             "filename=\""+source.getFileName().toString() + "\"");
     FileServerSave.transfer(source, res.getOutputStream());

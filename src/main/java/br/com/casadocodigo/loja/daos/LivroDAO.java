@@ -12,7 +12,7 @@ public class LivroDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Transactional
 	public void salvar(Livro livro) {
 		em.merge(livro);
@@ -22,4 +22,18 @@ public class LivroDAO {
 		String jpql = "select distinct(l) from Livro l join fetch l.autores";
 		return em.createQuery(jpql, Livro.class).getResultList();
 	}
+
+	public List<Livro> ultimosLancamentos() {
+		String jpql = "select l from Livro l order by l.id desc";
+		return em.createQuery(jpql, Livro.class).setMaxResults(5)
+				.getResultList();
+	}
+	
+	public List<Livro> demaisLivros() {
+        String jpql = "select l from Livro l order by l.id desc";
+        return em.createQuery(jpql, Livro.class)
+                .setFirstResult(0)
+        		.setMaxResults(5)
+                .getResultList();
+    }
 }
