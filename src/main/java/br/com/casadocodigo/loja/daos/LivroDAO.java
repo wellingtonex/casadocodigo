@@ -36,4 +36,12 @@ public class LivroDAO {
         		.setMaxResults(5)
                 .getResultList();
     }
+	
+	public Livro buscarPorId(Long id) {
+	    String jpql = "select l from Livro l join fetch l.autores "
+	            + "where l.id = :id";
+	    return em.createQuery(jpql, Livro.class)
+	            .setParameter("id", id)
+	            .getSingleResult();
+	}
 }
