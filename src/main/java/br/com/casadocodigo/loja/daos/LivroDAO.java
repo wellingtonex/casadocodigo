@@ -2,15 +2,20 @@ package br.com.casadocodigo.loja.daos;
 
 import java.util.List;
 
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.transaction.Transactional;
 
 import br.com.casadocodigo.loja.models.Livro;
 
+//quando o bean morre ele mata a instancia do dao tambem
+@Stateful
 public class LivroDAO {
 
-	@PersistenceContext
+	//a opção extended só está disponival para @Stateful
+	@PersistenceContext(type=PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
 	@Transactional
@@ -38,10 +43,15 @@ public class LivroDAO {
     }
 	
 	public Livro buscarPorId(Long id) {
-	    String jpql = "select l from Livro l join fetch l.autores "
-	            + "where l.id = :id";
-	    return em.createQuery(jpql, Livro.class)
-	            .setParameter("id", id)
-	            .getSingleResult();
+	    return em.find(Livro.class, id);
 	}
+	
+	//traz tudo, não faz proveito do lazzy
+//	public Livro buscarPorId(Long id) {
+//	    String jpql = "select l from Livro l join fetch l.autores "
+//	            + "where l.id = :id";
+//	    return em.createQuery(jpql, Livro.class)
+//	            .setParameter("id", id)
+//	            .getSingleResult();
+//	}
 }
