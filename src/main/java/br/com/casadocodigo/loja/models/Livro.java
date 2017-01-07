@@ -16,7 +16,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -48,6 +47,8 @@ public class Livro {
 	
 	@Temporal(TemporalType.DATE)
 	private Calendar dataPublicacao;
+	
+	private String capaPath;
 
 	public String getDescricao() {
 		return descricao;
@@ -110,6 +111,14 @@ public class Livro {
 		return "Livro [id=" + id + ", titulo=" + titulo + ", descricao="
 				+ descricao + ", preco=" + preco + ", numeroPaginas="
 				+ numeroPaginas + ", autores=" + autores + "]";
+	}
+
+	public String getCapaPath() {
+		return capaPath;
+	}
+
+	public void setCapaPath(String capaPath) {
+		this.capaPath = capaPath;
 	}
 	
 }

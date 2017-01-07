@@ -1,17 +1,19 @@
 package br.com.casadocodigo.loja.beans;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import br.com.casadocodigo.loja.daos.AutorDAO;
 import br.com.casadocodigo.loja.daos.LivroDAO;
+import br.com.casadocodigo.loja.infra.FileServerSave;
 import br.com.casadocodigo.loja.models.Autor;
 import br.com.casadocodigo.loja.models.Livro;
 
@@ -27,19 +29,27 @@ public class AdminLivrosBean {
 	@Inject
 	private AutorDAO autorDao;
 
-	private List<Long> autoresId = new ArrayList<>();
-	
 	@Inject
 	private FacesContext context;
+	
+	private Part capaLivro;
+	
+	private List<Autor> autores;
+	
+	
+	@PostConstruct
+	public void init() {
+		this.autores = autorDao.listar();		
+	}
 
 	public String salvar() {
-
-		for (Long autorId : autoresId) {
-			livro.getAutores().add(new Autor(autorId));
-		}		
+		
+		String relativePath = FileServerSave.fileSave(capaLivro, "livros");
+		 
+		livro.setCapaPath(relativePath);
+		
 		livroDao.salvar(livro);
 		livro = new Livro();
-		autoresId.clear();
  		context.getExternalContext().getFlash().setKeepMessages(true);
  		context.addMessage(null, new FacesMessage("Livro cadastrado com sucesso."));
 		return "/livros/lista?faces-redirect=true";
@@ -54,15 +64,14 @@ public class AdminLivrosBean {
 	}
 
 	public List<Autor> getAutores() {
-		return autorDao.listar();
+		return autores;
 	}
 
-	public List<Long> getAutoresId() {
-		return autoresId;
+	public Part getCapaLivro() {
+		return capaLivro;
 	}
 
-	public void setAutoresId(List<Long> autoresId) {
-		this.autoresId = autoresId;
+	public void setCapaLivro(Part capaLivro) {
+		this.capaLivro = capaLivro;
 	}
-
 }
